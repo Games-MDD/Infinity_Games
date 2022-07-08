@@ -1,0 +1,4 @@
+hostName: 127.0.0.1
+databaseName: qtminer
+userName: qtminer
+password: 123456 
