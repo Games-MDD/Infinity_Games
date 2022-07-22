@@ -23,27 +23,27 @@ protected:
       QWidget* resWindow;
       std::set <std::pair <int, QString> > results;
 
-      static const int B_WIDTH = 500;
-      static const int B_HEIGHT = 500;
+      static const int WINDOW_WIDTH = 500;
+      static const int WINDOW_HEIGHT = 500;
       static const int DOT_SIZE = 10;
-      static const int ALL_DOTS = 2500;
-      static const int RAND_POS = 50;
+      static const int NUMBER_OF_DOTS = 2500;
+      static const int RAND_POS_CONST = 50;
       static const int DELAY = 70;
 
       int timerId;
       int dots;
-      int apple_x;
-      int apple_y;
+      int appleX;
+      int appleY;
 
       int score = 0;
 
-      int x[ALL_DOTS];
-      int y[ALL_DOTS];
+      int x[NUMBER_OF_DOTS];
+      int y[NUMBER_OF_DOTS];
 
-      bool leftDirection;
-      bool rightDirection;
-      bool upDirection;
-      bool downDirection;
+      bool leftDir;
+      bool rightDir;
+      bool upDir;
+      bool downDir;
       bool inGame;
       bool paused;
 
@@ -60,6 +60,8 @@ protected:
       void stopGame();
       void loadData();
       void saveData();
+      void HelpMessage();
+      void clearResults();
 };
 
 #endif // SANKE_H

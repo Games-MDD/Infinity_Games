@@ -4,7 +4,4 @@
         <file>save/dot.png</file>
         <file>save/head.png</file>
     </qresource>
-    <qresource prefix="/data">
-        <file>save/data.txt</file>
-    </qresource>
 </RCC>

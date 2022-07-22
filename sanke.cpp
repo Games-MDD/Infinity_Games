@@ -8,16 +8,17 @@
 #include <QTimeEdit>
 #include <QVBoxLayout>
 #include <QMessageBox>
+#include <QDir>
 Snake::Snake(QWidget *parent) : QWidget(parent)
 {
-    setStyleSheet("background-color:yellow;");
-    leftDirection = false;
-    rightDirection = true;
-    upDirection = false;
-    downDirection = false;
+    //setStyleSheet("background-color:;");
+    leftDir = false;
+    rightDir = true;
+    upDir = false;
+    downDir = false;
     inGame = true;
     paused = false;
-    setFixedSize(B_WIDTH, B_HEIGHT);
+    setFixedSize(WINDOW_WIDTH, WINDOW_HEIGHT);
     loadImages();
     loadData();
     initGame();
@@ -42,9 +43,10 @@ void Snake::loadImages() {
 void Snake::initGame() {
     dots = 3;
     inGame = true;
-    for (int z = 0; z < dots; z++) {
-        x[z] = 50 - z * 10;
-        y[z] = 50;
+    score = 0;
+    for (int i = 0; i < dots; i++) {
+        x[i] = 50 - i * 10;
+        y[i] = 50;
     }
     locateApple();
     timerId = startTimer(DELAY);
@@ -59,12 +61,12 @@ void Snake::paintEvent(QPaintEvent *e) {
 void Snake::doDrawing() {
     QPainter qp(this);
     if (inGame) {
-        qp.drawImage(apple_x, apple_y, apple);
-        for (int z = 0; z < dots; z++) {
-            if (z == 0) {
-                qp.drawImage(x[z], y[z], head);
+        qp.drawImage(appleX, appleY, apple);
+        for (int i = 0; i < dots; i++) {
+            if (i == 0) {
+                qp.drawImage(x[i], y[i], head);
             } else {
-                qp.drawImage(x[z], y[z], dot);
+                qp.drawImage(x[i], y[i], dot);
             }
         }
         QString message = QString::number(score);
@@ -80,9 +82,8 @@ void Snake::doDrawing() {
 }
 
 void Snake::gameOver(QPainter &qp) {
-    //showResults();
     QString message = "Game over";
-    QFont font("Courier", 15, QFont::DemiBold);
+    QFont font("Courier", 53, QFont::DemiBold);
     QFontMetrics fm(font);
     qp.setPen(Qt::red);
     int textWidth = fm.horizontalAdvance(message);
@@ -100,7 +101,6 @@ void Snake::gameOver(QPainter &qp) {
         if (QMessageBox::question(this, "Игра закончена!", "Желаете сыграть снова?", QMessageBox::Yes | QMessageBox::No) == QMessageBox::No){
             stopGame();
         } else {
-            score = 0;
             initGame();
         }
     }
@@ -117,16 +117,16 @@ void Snake::showResults()
     resWindow = new QWidget();
     resWindow->resize(400,200);
     resWindow->setWindowTitle("Score");
-    QLabel *resLbl = new QLabel("1111");
+    QLabel *resLbl = new QLabel("");
     resLbl->setGeometry(20,60,50,20);
     QString res = "";
     for(std::pair<int, QString> i: results){
         res += i.second + " : " + QString::number(-i.first)+ '\n';
     }
     resLbl->setText(res);
-        resWindow->setLayout(new QVBoxLayout());
-        resWindow->layout()->addWidget(resLbl);
-        resWindow->show();
+    resWindow->setLayout(new QVBoxLayout());
+    resWindow->layout()->addWidget(resLbl);
+    resWindow->show();
 }
 
 void Snake::stopGame()
@@ -136,10 +136,10 @@ void Snake::stopGame()
 
 void Snake::loadData()
 {
-    QFile mFile(":/data/save/data.txt");
+    QString path = QDir::currentPath() + "/data.txt";
+    QFile mFile(path);
     mFile.open(QIODevice::ReadOnly | QIODevice::Text);
     std::vector<std::pair<std::string, std::string > > vec;
-    qDebug() << "23e2";
     while(!mFile.atEnd()){
         QString line = mFile.readLine();
         QString name = "";
@@ -163,18 +163,36 @@ void Snake::loadData()
 
 void Snake::saveData()
 {
-    QFile mFile(":/data/save/data.txt");
+    QString path = QDir::currentPath() + "/data.txt";
+    QFile mFile(path);
     mFile.open(QIODevice::WriteOnly);
     QTextStream writeStream(&mFile);
     for(auto to: results){
-        writeStream << to.second << ' ' << QString::number(to.first) << '\n';
+        writeStream << to.second << ':' << QString::number(-to.first) << '\n';
     }
     mFile.close();
 }
 
-void Snake::checkApple() {
+void Snake::HelpMessage()
+{
+    QMessageBox::information(this, "Help", "Press H for Help\nPress R to see Results\nPress Space to pause\resume game");
+}
 
-    if ((x[0] == apple_x) && (y[0] == apple_y)) {
+void Snake::clearResults()
+{
+    if (QMessageBox::question(this, "Clear results", "Do you really want to clear results", QMessageBox::Yes | QMessageBox::No) == QMessageBox::Yes){
+        QString path = QDir::currentPath() + "/data.txt";
+        QFile mFile(path);
+        mFile.open(QIODevice::WriteOnly);
+        QTextStream writeStream(&mFile);
+        writeStream << "";
+        mFile.close();
+        results.clear();
+    }
+}
+
+void Snake::checkApple() {
+    if ((x[0] == appleX) && (y[0] == appleY)) {
         dots++;
         score++;
         locateApple();
@@ -182,38 +200,36 @@ void Snake::checkApple() {
 }
 
 void Snake::move() {
-
-    for (int z = dots; z > 0; z--) {
-        x[z] = x[(z - 1)];
-        y[z] = y[(z - 1)];
+    for (int i = dots; i > 0; i--) {
+        x[i] = x[(i - 1)];
+        y[i] = y[(i - 1)];
     }
 
-    if (leftDirection) {
+    if (leftDir) {
         x[0] -= DOT_SIZE;
     }
 
-    if (rightDirection) {
+    if (rightDir) {
         x[0] += DOT_SIZE;
     }
 
-    if (upDirection) {
+    if (upDir) {
         y[0] -= DOT_SIZE;
     }
 
-    if (downDirection) {
+    if (downDir) {
         y[0] += DOT_SIZE;
     }
 }
 
 void Snake::checkCollision() {
-
-    for (int z = dots; z > 0; z--) {
-        if ((z > 4) && (x[0] == x[z]) && (y[0] == y[z])) {
+    for (int i = dots; i > 0; i--) {
+        if ((i > 4) && (x[0] == x[i]) && (y[0] == y[i])) {
             inGame = false;
         }
     }
 
-    if (y[0] >= B_HEIGHT) {
+    if (y[0] >= WINDOW_HEIGHT-10) {
         inGame = false;
     }
 
@@ -221,7 +237,7 @@ void Snake::checkCollision() {
         inGame = false;
     }
 
-    if (x[0] >= B_WIDTH) {
+    if (x[0] >= WINDOW_WIDTH-10) {
         inGame = false;
     }
 
@@ -238,11 +254,16 @@ void Snake::locateApple() {
     QTime time = QTime::currentTime();
     qsrand((uint)time.msec());
 
-    int r = qrand() % RAND_POS;
-    apple_x = (r * DOT_SIZE);
-
-    r = qrand() % RAND_POS;
-    apple_y = (r * DOT_SIZE);
+    int r = qrand() % RAND_POS_CONST;
+    appleX = (r * DOT_SIZE);
+    r = qrand() % RAND_POS_CONST;
+    appleY = (r * DOT_SIZE);
+    if (appleY >= WINDOW_HEIGHT-10) {
+        locateApple();
+    }
+    if(appleX >= WINDOW_WIDTH - 10){
+        locateApple();
+    }
 }
 
 void Snake::timerEvent(QTimerEvent *e) {
@@ -259,32 +280,40 @@ void Snake::keyPressEvent(QKeyEvent *e) {
 
     int key = e->key();
 
-    if ((key == Qt::Key_Left) && (!rightDirection)) {
-        leftDirection = true;
-        upDirection = false;
-        downDirection = false;
+    if ((key == Qt::Key_Left) && (!rightDir)) {
+        leftDir = true;
+        upDir = false;
+        downDir = false;
     }
 
-    if ((key == Qt::Key_Right) && (!leftDirection)) {
-        rightDirection = true;
-        upDirection = false;
-        downDirection = false;
+    if ((key == Qt::Key_Right) && (!leftDir)) {
+        rightDir = true;
+        upDir = false;
+        downDir = false;
     }
 
-    if ((key == Qt::Key_Up) && (!downDirection)) {
-        upDirection = true;
-        rightDirection = false;
-        leftDirection = false;
+    if ((key == Qt::Key_Up) && (!downDir)) {
+        upDir = true;
+        rightDir = false;
+        leftDir = false;
     }
 
-    if ((key == Qt::Key_Down) && (!upDirection)) {
-        downDirection = true;
-        rightDirection = false;
-        leftDirection = false;
+    if ((key == Qt::Key_Down) && (!upDir)) {
+        downDir = true;
+        rightDir = false;
+        leftDir = false;
     }
 
     if (key == Qt::Key_R){
-        showResults();
+        if(!paused){
+            onPause();
+            showResults();
+            if(!resWindow->isVisible()){
+                onResume();
+            }
+        } else {
+            showResults();
+        }
     }
 
     if(key == Qt::Key_Space){
@@ -292,7 +321,23 @@ void Snake::keyPressEvent(QKeyEvent *e) {
     }
 
     if(key == Qt::Key_H){
+        if(!paused){
+            onPause();
+            HelpMessage();
+            onResume();
+        } else {
+            HelpMessage();
+        }
+    }
 
+    if(key == Qt::Key_C){
+        if(!paused){
+            onPause();
+            clearResults();
+            onResume();
+        } else {
+            clearResults();
+        }
     }
     QWidget::keyPressEvent(e);
 }
