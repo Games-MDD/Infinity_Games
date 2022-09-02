@@ -1,0 +1,11 @@
+https://github.com/Falkramm/Infinity_Games.git
+echo "# Infinity_Games" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/Falkramm/Infinity_Games.git
+git push -u origin main
+git remote add origin https://github.com/Falkramm/Infinity_Games.git
+git branch -M main
+git push -u origin main

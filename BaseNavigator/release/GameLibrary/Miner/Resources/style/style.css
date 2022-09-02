@@ -1,0 +1,25 @@
+QLabel#textField {
+  margin: 0 0 3px 3px;
+}
+
+QLabel#timeField {
+  margin-bottom: 3px;
+}
+
+/* Кнопка Show Result */
+
+QPushButton#showResult { 
+  color: #289e3d; 
+  border: none; 
+  margin: 0 8px 3px 0;
+}
+
+QPushButton#showResult:hover { 
+  text-decoration: underline 
+}
+
+QPushButton#showResultDisable { 
+  color: #72cc72; 
+  border: none;
+  margin: 0 3px 3px 1px;
+}

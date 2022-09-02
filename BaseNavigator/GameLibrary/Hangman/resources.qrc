@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>save/0.png</file>
+        <file>save/1.png</file>
+        <file>save/2.png</file>
+        <file>save/3.png</file>
+        <file>save/4.png</file>
+        <file>save/5.png</file>
+        <file>save/6.png</file>
+        <file>save/7.png</file>
+        <file>save/8.png</file>
+        <file>save/9.png</file>
+        <file>save/10.png</file>
+    </qresource>
+</RCC>
