@@ -7,7 +7,7 @@
 *****************************************************************************/
 
 #include <memory>
-#include "../startfragment.h"
+#include "E:/Downloads/Infinity_Games-master (1)/Infinity_Games-master/BaseNavigator/startfragment.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

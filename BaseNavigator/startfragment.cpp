@@ -17,9 +17,9 @@ StartFragment::StartFragment() {
   // Choose Frame
   QHBoxLayout *FrameLayout = new QHBoxLayout;
   FrameLayout->setSpacing(0);
-  FrameLayout->addWidget(new QPushButton("Games"));
-  FrameLayout->addWidget(new QPushButton("Account"));
-  FrameLayout->addWidget(new QPushButton("Statistics"));
+  //FrameLayout->addWidget(new QPushButton("Games"));
+  //FrameLayout->addWidget(new QPushButton("Account"));
+  //FrameLayout->addWidget(new QPushButton("Statistics"));
   mainLayout->addLayout(FrameLayout);
   // StartButton
   QPushButton *StartGameButton = new QPushButton("Play Game", this);
