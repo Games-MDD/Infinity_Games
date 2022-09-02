@@ -1,0 +1,13 @@
+release/basefragment.o
+release/basenavigator.o
+release/basescreensfactory.o
+release/gamefragment.o
+release/main.o
+release/screensfactory.o
+release/startfragment.o
+release/testwindow.o
+release/qrc_Games.o
+release/moc_basefragment.o
+release/moc_basenavigator.o
+release/moc_startfragment.o
+release/moc_testwindow.o

@@ -1,0 +1,13 @@
+debug/basefragment.o
+debug/basenavigator.o
+debug/basescreensfactory.o
+debug/gamefragment.o
+debug/main.o
+debug/screensfactory.o
+debug/startfragment.o
+debug/testwindow.o
+debug/qrc_Games.o
+debug/moc_basefragment.o
+debug/moc_basenavigator.o
+debug/moc_startfragment.o
+debug/moc_testwindow.o

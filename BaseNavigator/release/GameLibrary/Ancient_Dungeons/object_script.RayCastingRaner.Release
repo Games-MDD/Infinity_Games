@@ -1,0 +1,10 @@
+release/Charactor.o
+release/main.o
+release/infinityengine.o
+release/mapfactory.o
+release/ray.o
+release/staticactor.o
+release/walltexturefactory.o
+release/weapon.o
+release/qrc_Images.o
+release/moc_infinityengine.o

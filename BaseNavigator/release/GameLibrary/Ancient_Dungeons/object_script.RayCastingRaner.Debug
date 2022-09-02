@@ -1,0 +1,10 @@
+debug/Charactor.o
+debug/main.o
+debug/infinityengine.o
+debug/mapfactory.o
+debug/ray.o
+debug/staticactor.o
+debug/walltexturefactory.o
+debug/weapon.o
+debug/qrc_Images.o
+debug/moc_infinityengine.o
