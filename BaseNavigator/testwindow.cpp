@@ -8,6 +8,13 @@ TestWindow::TestWindow(QWidget *parent)
   factory = new ScreensFactory;
   navigator = new BaseNavigator(container, factory);
   setCentralWidget(container);
+  //set GUI
+
+  //set title
+  setWindowTitle("Infinity Games");
+  setWindowIcon(QIcon(":/icon/Resource/WindowIcon.png"));
+    setPalette(QPalette(Qt::GlobalColor::gray));
+
 }
 
 TestWindow::~TestWindow() { delete ui; }

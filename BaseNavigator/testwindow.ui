@@ -10,8 +10,15 @@
     <height>600</height>
    </rect>
   </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::NoContextMenu</enum>
+  </property>
   <property name="windowTitle">
    <string>TestWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">#Widget { background-image: url(:/img/Resource/Wallpaper-Green-Mountain-Illustration-Gameboy-Vintage-P322048x1152.jpg); }
+</string>
   </property>
  </widget>
  <resources/>

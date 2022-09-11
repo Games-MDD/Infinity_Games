@@ -1,3 +1,16 @@
 <RCC>
-    <qresource prefix="/breakout"/>
+    <qresource prefix="/font">
+        <file>Resource/8-bit Limit BRK.ttf</file>
+    </qresource>
+    <qresource prefix="/img">
+        <file>Resource/Wallpaper-Green-Mountain-Illustration-Gameboy-Vintage-P322048x1152.jpg</file>
+    </qresource>
+    <qresource prefix="/icon">
+        <file>Resource/MinerIcon.png</file>
+        <file>Resource/WindowIcon.png</file>
+        <file>Resource/BreakoutIcon.png</file>
+        <file>Resource/SnakeIcon.png</file>
+        <file>Resource/HangManIcon.jpg</file>
+        <file>Resource/Ancient_Dungeons.gif</file>
+    </qresource>
 </RCC>

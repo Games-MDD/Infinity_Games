@@ -372,15 +372,17 @@ void GameEngine::paintWalls(QPainter &ptr, std::vector<Ray> &rayArr) {
 void GameEngine::paintSprites(QPainter &ptr, std::vector<Ray> &rayArr) {
   for (size_t i = 0; i < ActorsArr.size(); ++i)
     ActorsArr[i]->setIsActivated(true);
+  QPointF ActorPos = mainCharactor->getCentralRay().getStartPoint();
+  std::sort(ActorsArr.begin(), ActorsArr.end(),
+            [ActorPos](Actor *&a, Actor *&b) {
+              return QLineF(a->getPosition(), ActorPos).length() >=
+                     QLineF(b->getPosition(), ActorPos).length();
+            });
   for (size_t i = 0; i < rayArr.size(); ++i) {
 
     double sHeight = 64 * 312.5;
-    QPointF ActorPos = mainCharactor->getCentralRay().getStartPoint();
-    std::sort(ActorsArr.begin(), ActorsArr.end(),
-              [ActorPos](Actor *&a, Actor *&b) {
-                return QLineF(a->getPosition(), ActorPos).length() >=
-                       QLineF(b->getPosition(), ActorPos).length();
-              });
+
+
     for (size_t j = 0; j < ActorsArr.size(); ++j) {
 
       Sprite sprite(ActorsArr[j]->getSprite(
@@ -393,7 +395,7 @@ void GameEngine::paintSprites(QPainter &ptr, std::vector<Ray> &rayArr) {
                         .length();
       if (dist >
           QLineF(rayArr[i].getStartPoint(), rayArr[i].getEndPoint()).length() || dist<25)
-        continue;
+          continue;
       QVector2D SpriteDir(
           sprite.Position.x() -
               mainCharactor->getCentralRay().getStartPoint().x(),
@@ -404,7 +406,7 @@ void GameEngine::paintSprites(QPainter &ptr, std::vector<Ray> &rayArr) {
       double centralCos = acos(
           SpriteDir.x() * mainCharactor->getCentralRay().getDirection().x() +
           SpriteDir.y() * mainCharactor->getCentralRay().getDirection().y());
-      if (centralCos > 90. / 180. * M_PI)
+      if (centralCos > 15. / 180. * M_PI)
         continue;
       double localCos = SpriteDir.x() * rayArr[i].getDirection().x() +
                         SpriteDir.y() * rayArr[i].getDirection().y();

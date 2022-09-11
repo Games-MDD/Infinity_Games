@@ -24,6 +24,9 @@ public:
         if (TestWindow->objectName().isEmpty())
             TestWindow->setObjectName(QString::fromUtf8("TestWindow"));
         TestWindow->resize(800, 600);
+        TestWindow->setContextMenuPolicy(Qt::NoContextMenu);
+        TestWindow->setStyleSheet(QString::fromUtf8("#Widget { background-image: url(:/img/Resource/Wallpaper-Green-Mountain-Illustration-Gameboy-Vintage-P322048x1152.jpg); }\n"
+""));
 
         retranslateUi(TestWindow);
 

@@ -6,6 +6,7 @@ StartFragment::StartFragment() {
   setLayout(mainLayout);
   // Logo Label
   QLabel *LogoLabel = new QLabel("Infinity Games Studio", this);
+  LogoLabel->setPalette(QPalette(Qt::GlobalColor::red));
   mainLayout->addWidget(LogoLabel);
   // Splitrer
 
@@ -26,17 +27,25 @@ StartFragment::StartFragment() {
   mainLayout->addWidget(StartGameButton);
   // GamesTags
   GameTagsModel = new QStandardItemModel;
-  GameTagsModel->setItem(0, new QStandardItem("Miner"));
-  GameTagsModel->setItem(1, new QStandardItem("Breakout"));
-  GameTagsModel->setItem(2, new QStandardItem("Snake"));
-  GameTagsModel->setItem(3, new QStandardItem("Hangman"));
-  GameTagsModel->setItem(4, new QStandardItem("Ancient_Dungeons"));
+  GameTagsModel->setItem(0, new QStandardItem(QIcon(":/icon/Resource/MinerIcon.png"),"Miner"));
+  GameTagsModel->setItem(1, new QStandardItem(QIcon(":/icon/Resource/BreakoutIcon.png"),"Breakout"));
+  GameTagsModel->setItem(2, new QStandardItem(QIcon(":/icon/Resource/SnakeIcon.png"),"Snake"));
+  GameTagsModel->setItem(3, new QStandardItem(QIcon(":/icon/Resource/HangManIcon.jpg"),"Hangman"));
+  GameTagsModel->setItem(4, new QStandardItem(QIcon(":/icon/Resource/Ancient_Dungeons.gif"),"Ancient_Dungeons"));
   GameTagsListView = new QListView;
   GameTagsListView->setModel(GameTagsModel);
   GameTagsListView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  //GameTagsListView->setBackgroundRole(QPalette::Dark);
+  GameTagsListView->setPalette(QPalette(Qt::blue,Qt::blue));
   mainLayout->addWidget(GameTagsListView);
   // connect
   connect(StartGameButton, SIGNAL(clicked()), this, SLOT(StartNewGame()));
+  //
+  //set font
+  int id = QFontDatabase::addApplicationFont(
+      ":/font/Resource/8-bit Limit BRK.ttf");
+  QString family = QFontDatabase::applicationFontFamilies(id).at(0);
+  setFont(QFont(family));
 }
 StartFragment::~StartFragment() {}
 

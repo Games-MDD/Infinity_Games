@@ -26,6 +26,7 @@ Breakout::Breakout(QWidget *parent)
     }
   setFocusPolicy(Qt::StrongFocus);
   startGame();
+  pauseGame();
 }
 Breakout::~Breakout() {
   delete ball;
@@ -116,7 +117,6 @@ void Breakout::keyReleaseEvent(QKeyEvent *e) {
 
 void Breakout::keyPressEvent(QKeyEvent *e) {
     int dx = 0;
-
     switch (e->key()) {
     case Qt::Key_Left:
 

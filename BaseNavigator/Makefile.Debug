@@ -138,7 +138,15 @@ compiler_rcc_make_all: debug/qrc_Games.cpp
 compiler_rcc_clean:
 	-$(DEL_FILE) debug\qrc_Games.cpp
 debug/qrc_Games.cpp: Games.qrc \
-		D:/QT/5.14.2/mingw73_64/bin/rcc.exe
+		D:/QT/5.14.2/mingw73_64/bin/rcc.exe \
+		Resource/MinerIcon.png \
+		Resource/Ancient_Dungeons.gif \
+		Resource/WindowIcon.png \
+		Resource/SnakeIcon.png \
+		Resource/BreakoutIcon.png \
+		Resource/HangManIcon.jpg \
+		Resource/Wallpaper-Green-Mountain-Illustration-Gameboy-Vintage-P322048x1152.jpg \
+		Resource/8-bit\ Limit\ BRK.ttf
 	D:\QT\5.14.2\mingw73_64\bin\rcc.exe -name Games Games.qrc -o debug\qrc_Games.cpp
 
 compiler_moc_predefs_make_all: debug/moc_predefs.h
